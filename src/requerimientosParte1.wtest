@@ -1,0 +1,32 @@
+import personas.*
+import marcas.*
+describe "test"{
+	var hofbrau=new MarcasRojas()
+	var jarra=new Jarras()
+	var iorio=new Belga()
+	
+	fixture {
+		hofbrau.contenidoDeLupulo(15)
+		hofbrau.paisDeFabrica("cuba")
+		hofbrau.graduacion()
+		jarra.marca(hofbrau)
+		jarra.capacidad(0.5)
+		iorio.peso(87)
+		iorio.comprarJarra(jarra)
+		iorio.escuchaMusicaTradicional(true)
+		iorio.nivelDeAguante(50)
+	}
+	test "contenido de alcohol"{
+		assert.equals(jarra.contenidoDeAlcohol(),0.04)
+	}
+	test "total de alcohol"{
+		var total=iorio.jarrasCompradas().sum({j=>j.contenidoDeAlcohol()})
+		assert.equals(total,0.04)
+	}
+	test "esta ebrio"{
+		assert.notThat(iorio.estaEbrio())
+	}
+	test "le gusta"{
+		assert.that(iorio.leGusta(hofbrau))
+	}
+}
